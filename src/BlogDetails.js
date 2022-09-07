@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import useFetch from "./useFetch";
 
 const BlogDetails = () => {
@@ -7,6 +7,19 @@ const BlogDetails = () => {
     const { id } = useParams();
 // here we re-use the usefetch hook to grab the three properties
     const { data: blog, error, isPending } = useFetch('http://localhost:8000/blogs/' + id)
+    const history = useHistory();
+
+    // this functions makes a fetch request to delete blogs
+    const handleClick= () => {
+      fetch('http://localhost:8000/blogs/' + blog.id, {
+        // here we ask JSON server to delete the blog with that id
+        method: 'DELETE'
+        // redirecting the user to the home page using the useHistory hook
+      }).then(() => {
+        history.push('/')
+
+      })
+    }
 
     return (
         <div className="blog-details">
@@ -19,6 +32,7 @@ const BlogDetails = () => {
                 <h2>{ blog.title }</h2>
                 <p>Written by { blog.author }</p>
                 <div>{ blog.body }</div>
+                <button onClick={handleClick}>Delete</button>
             </article>
           )}
 
