@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import BlogList from "./BlogList";
 import useFetch from "./useFetch";
 
@@ -19,8 +18,3 @@ const Home = () => {
 
 export default Home;
 
-// npx json-server --watch data/db.json --port 8000 command explanation 
-// json-server: runs the json server
-// --watch : flag to watch the file 
-// data/db.json : path 
-// --port 8000 : another flag for speciying the port number, it will automatically go to port 3000 if it's not specififed 

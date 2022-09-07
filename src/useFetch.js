@@ -8,8 +8,9 @@ const useFetch = (url) => {
   const [error, setError] = useState(null);
 // useEffect hook: fetching the data
   useEffect(() => {
+    const abortCont = new AbortController();
     setTimeout(() => {
-      fetch(url)
+      fetch(url, { signal: abortCont.signal })
       // here we get the response object and use the JSON method
       .then(res => {
         if (!res.ok) { // error coming back from server
@@ -27,12 +28,20 @@ const useFetch = (url) => {
       })
       // catch block catches any network error and fires a function
       .catch(err => {
-        // auto catches network / connection error
-        setIsPending(false);
-        setError(err.message);
+        if (err.name === 'AbortError') {
+          console.log('fetch aborted');
+        } else {
+          // auto catches network / connection error
+          setIsPending(false);
+          setError(err.message);
+
+        }
+        
       })
     }, 1000);
+    return () => abortCont.abort();
   }, [url])
+
 
   return { data, isPending, error };
 }
