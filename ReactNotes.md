@@ -11,3 +11,6 @@ If the user visits another page, react intercepts this request to stop it from g
 // --watch : flag to watch the file 
 // data/db.json : path 
 // --port 8000 : another flag for speciying the port number, it will automatically go to port 3000 if it's not specififed 
+
+Questions
+1. Similar to the controlled inputs form- how would we create something similar that added user's names dynamically. What concept is this?
